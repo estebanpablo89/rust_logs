@@ -17,6 +17,8 @@ fn extract_errors(text: &str) -> Vec<String> {
 }
 
 fn main() -> Result<(), Error> {
+
+    // try operator
     let text = fs::read_to_string("logs.txt")?;
     let error_logs = extract_errors(text.as_str());
     fs::write("errors.txt", error_logs.join("\n"))?;
@@ -25,7 +27,7 @@ fn main() -> Result<(), Error> {
 
     // string_test(String::from("red"), &String::from("red"), "red");
 
-    //---------------------------------------------
+    //expect operator
     // let text = fs::read_to_string("logs.txt")
     //     .expect("Error reading file");
 
@@ -35,7 +37,7 @@ fn main() -> Result<(), Error> {
     //     .expect("Error writing file");
 
 
-    //---------------------------------------------
+    //match operator
     // match fs::read_to_string("logs.txt") {
     //     Ok(text) => {
     //         let error_logs = extract_errors(text.as_str());
