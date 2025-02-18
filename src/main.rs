@@ -2,14 +2,14 @@ use std::{fs, vec};
 use std::io::Error;
 
 // fn string_test(a: String,b: &String, c: &str,) {}
-fn extract_errors(text: &str) -> Vec<&str> {
+fn extract_errors(text: &str) -> Vec<String> {
     let split_text = text.split("\n");
 
     let mut results = vec![];
 
     for line in split_text {
         if line.starts_with("ERROR") {
-            results.push(line);
+            results.push(line.to_string());
         }
     }
 
