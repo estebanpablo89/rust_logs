@@ -1,4 +1,4 @@
-use std::{fs, vec};
+use std::fs;
 use std::io::Error;
 
 // fn string_test(a: String,b: &String, c: &str,) {}
@@ -16,29 +16,49 @@ fn extract_errors(text: &str) -> Vec<String> {
     results
 }
 
-fn main() {
+fn main() -> Result<(), Error> {
+    let text = fs::read_to_string("logs.txt")?;
+    let error_logs = extract_errors(text.as_str());
+    fs::write("errors.txt", error_logs.join("\n"))?;
+
+    Ok(())
+
     // string_test(String::from("red"), &String::from("red"), "red");
 
-    let mut error_logs = vec![];
+    //---------------------------------------------
+    // let text = fs::read_to_string("logs.txt")
+    //     .expect("Error reading file");
 
-    match fs::read_to_string("logs.txt") {
-        Ok(text) => {
-            error_logs = extract_errors(text.as_str());
-        },
-        Err(e) => println!("Error: {:#?}", e)
-    }
+    // let error_logs = extract_errors(text.as_str());
 
-    print!("Error logs: {:#?}", error_logs);
+    // fs::write("errors.txt", error_logs.join("\n"))
+    //     .expect("Error writing file");
 
-//    match divide(5.0, 0.0) {
-//        Ok(result) => println!("Result: {}", result),
-//        Err(e) => println!("Error: {}", e)
-//    }
 
-//    match validate_email("test.com".to_string()) {
-//        Ok(..) => println!("Valid email"),
-//        Err(e) => println!("Error: {}", e)
-//    }
+    //---------------------------------------------
+    // match fs::read_to_string("logs.txt") {
+    //     Ok(text) => {
+    //         let error_logs = extract_errors(text.as_str());
+
+    //         match fs::write("errors.txt", error_logs.join("\n")) {
+    //             Ok(..) => println!("Errors written to file"),
+    //             Err(e) => println!("Error: {:#?}", e)
+    //         }
+    //     },
+    //     Err(e) => println!("Error: {:#?}", e)
+    // }
+
+    //---------------------------------------------
+    //    match divide(5.0, 0.0) {
+    //        Ok(result) => println!("Result: {}", result),
+    //        Err(e) => println!("Error: {}", e)
+    //    }
+
+    //---------------------------------------------
+    //    match validate_email("test.com".to_string()) {
+    //        Ok(..) => println!("Valid email"),
+    //        Err(e) => println!("Error: {}", e)
+    //    }
 }
 
 fn validate_email(email: String) -> Result<(), Error> {
